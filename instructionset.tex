@@ -1,0 +1,486 @@
+% !TEX TS-program = pdflatex
+% !TEX encoding = UTF-8 Unicode
+
+% This is a simple template for a LaTeX document using the "article" class.
+% See "book", "report", "letter" for other types of document.
+
+\documentclass[10pt]{article} % use larger type; default would be 10pt
+\pagestyle{empty}
+
+\usepackage{ccfonts}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+
+%%% Examples of Article customizations
+% These packages are optional, depending whether you want the features they provide.
+% See the LaTeX Companion or other references for full information.
+
+%%% PAGE DIMENSIONS
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\geometry{margin=1cm} % for example, change the margins to 2 inches all round
+%\geometry{hmargin={0.5cm,1.5cm}}
+% \geometry{landscape} % set up the page for landscape
+%   read geometry.pdf for detailed page layout information
+
+%\usepackage{graphicx} % support the \includegraphics command and options
+
+\usepackage[parfill]{parskip} % Activate to begin paragraphs with an empty line rather than an indent
+
+\usepackage{xcolor,colortbl}
+
+%%% PACKAGES
+%\usepackage{booktabs} % for much better looking tables
+\usepackage{array} % for better arrays (eg matrices) in maths
+\usepackage{paralist} % very flexible & customisable lists (eg. enumerate/itemize, etc.)
+\usepackage{verbatim} % adds environment for commenting out blocks of text & for better verbatim
+\usepackage{subfig} % make it possible to include more than one captioned figure/table in a single float
+% These packages are all incorporated in the memoir class to one degree or another...
+
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{multirow}
+
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
+
+%\usepackage{textcomp} % proporciona \textdiv
+
+%%% HEADERS & FOOTERS
+%\usepackage{fancyhdr} % This should be set AFTER setting up the page geometry
+%\pagestyle{fancy} % options: empty , plain , fancy
+%\renewcommand{\headrulewidth}{0pt} % customise the layout...
+%\lhead{}\chead{}\rhead{}
+%\lfoot{}\cfoot{\thepage}\rfoot{}
+
+%%% SECTION TITLE APPEARANCE
+%\usepackage{sectsty}
+%\allsectionsfont{\sffamily\mdseries\upshape} % (See the fntguide.pdf for font help)
+% (This matches ConTeXt defaults)
+
+%%% ToC (table of contents) APPEARANCE
+%\usepackage[nottoc,notlof,notlot]{tocbibind} % Put the bibliography in the ToC
+%\usepackage[titles,subfigure]{tocloft} % Alter the style of the Table of Contents
+%\renewcommand{\cftsecfont}{\rmfamily\mdseries\upshape}
+%\renewcommand{\cftsecpagefont}{\rmfamily\mdseries\upshape} % No bold!
+
+%%% END Article customizations
+
+%%% The "real" document content comes below...
+
+%\title{Brief Article}
+%\author{The Author}
+%\date{} % Activate to display a given date or no date (if empty),
+         % otherwise the current date is printed 
+
+\makeatletter
+\newcommand*{\textoverline}[1]{$\overline{\hbox{#1}}\m@th$}
+\makeatother
+
+\newcommand{\picswap}{
+\begin{minipage}[m]{8mm}
+\setlength{\unitlength}{1mm}
+\begin{picture}(8,8)(0,-1)
+% caja
+\put(0,2){\line(1,0){8}}
+\put(0,4){\line(1,0){8}}
+\put(0,2){\line(0,1){2}}
+\put(4,2){\line(0,1){2}}
+\put(8,2){\line(0,1){2}}
+% textos
+\put(0.4,2.4){\tiny\texttt 7}
+\put(2.8,2.4){\tiny\texttt 4}
+\put(4.4,2.4){\tiny\texttt 3}
+\put(6.8,2.4){\tiny\texttt 0}
+% flecha de arriba
+\put(2,4){\line(0,1){2}}
+\put(2,6){\line(1,0){4}}
+\put(6,6){\vector(0,-1){2}}
+% flecha de abajo
+\put(6,2){\line(0,-1){2}}
+\put(6,0){\line(-1,0){4}}
+\put(2,0){\vector(0,1){2}}
+\end{picture}
+\end{minipage}
+}
+
+\setlength{\unitlength}{1mm}
+\newsavebox{\boxxcy}
+\savebox{\boxxcy}(2.5,2)[bl]{
+	\put(0.4,0.4){\tiny\texttt{CY}}
+	\multiput(0,0)(2.5,0){2}{\line(0,1){2}}
+	\multiput(0,0)(0,2){2}{\line(1,0){2.5}}
+}
+\newsavebox{\boxxleft}
+\savebox{\boxxleft}(6,2)[bl]{
+	\put(0.4,0.4){\tiny\texttt{7}}
+	\put(4.8,0.4){\tiny\texttt{0}}
+	\multiput(0,0)(6,0){2}{\line(0,1){2}}
+	\multiput(0,0)(0,2){2}{\line(1,0){6}}
+	\put(4.5,1){\vector(-1,0){3}}
+}
+\newsavebox{\boxxright}
+\savebox{\boxxright}(6,2)[bl]{
+	\put(0.4,0.4){\tiny\texttt{7}}
+	\put(4.8,0.4){\tiny\texttt{0}}
+	\multiput(0,0)(6,0){2}{\line(0,1){2}}
+	\multiput(0,0)(0,2){2}{\line(1,0){6}}
+	\put(1.5,1){\vector(1,0){3}}
+}
+
+
+\newcommand{\picrlca}{
+\setlength{\unitlength}{1mm}
+\begin{picture}(16,4)
+\put(0,0){\usebox{\boxxcy}}
+\put(8,0){\usebox{\boxxleft}}
+\put(8,1){\vector(-1,0){5.5}}
+\put(6,1){\line(0,1){2}}
+\put(6,3){\line(1,0){10}}
+\put(16,3){\line(0,-1){2}}
+\put(16,1){\vector(-1,0){2}}
+\end{picture}
+}
+
+\newcommand{\picrla}{
+\setlength{\unitlength}{1mm}
+\begin{picture}(18,4)(-2,0)
+\put(0,0){\usebox{\boxxcy}}
+\put(8,0){\usebox{\boxxleft}}
+\put(8,1){\vector(-1,0){5.5}}
+\put(0,1){\line(-1,0){2}}
+\put(-2,1){\line(0,1){2}}
+\put(-2,3){\line(1,0){18}}
+\put(16,3){\line(0,-1){2}}
+\put(16,1){\vector(-1,0){2}}
+\end{picture}
+}
+
+\newcommand{\picrrca}{
+\setlength{\unitlength}{1mm}
+\begin{picture}(16,4)
+\put(2,0){\usebox{\boxxright}}
+\put(13.5,0){\usebox{\boxxcy}}
+\put(8,1){\vector(1,0){5.5}}
+\put(10,1){\line(0,1){2}}
+\put(10,3){\line(-1,0){10}}
+\put(0,3){\line(0,-1){2}}
+\put(0,1){\vector(1,0){2}}
+\end{picture}
+}
+
+\newcommand{\picrra}{
+\setlength{\unitlength}{1mm}
+\begin{picture}(18,4)
+\put(2,0){\usebox{\boxxright}}
+\put(13.5,0){\usebox{\boxxcy}}
+\put(8,1){\vector(1,0){5.5}}
+\put(16,1){\line(1,0){2}}
+\put(18,1){\line(0,1){2}}
+\put(18,3){\line(-1,0){18}}
+\put(0,3){\line(0,-1){2}}
+\put(0,1){\vector(1,0){2}}
+\end{picture}
+}
+
+\newcommand{\picsla}{
+\setlength{\unitlength}{1mm}
+\begin{picture}(18,2)
+\put(0,0){\usebox{\boxxcy}}
+\put(8,0){\usebox{\boxxleft}}
+\put(8,1){\vector(-1,0){5.5}}
+\put(17,1){\vector(-1,0){3}}
+\put(17.2,0.4){\tiny\texttt 0}
+\end{picture}
+}
+
+\newcommand{\picsra}{
+\setlength{\unitlength}{1mm}
+\begin{picture}(16,4)
+\put(2,0){\usebox{\boxxright}}
+\put(13.5,0){\usebox{\boxxcy}}
+\put(8,1){\vector(1,0){5.5}}
+\put(3,2){\line(0,1){1}}
+\put(3,3){\line(-1,0){3}}
+\put(0,3){\line(0,-1){2}}
+\put(0,1){\vector(1,0){2}}
+\end{picture}
+}
+
+\newcommand{\picsrl}{
+\setlength{\unitlength}{1mm}
+\begin{picture}(18.2,2)(-2.2,0)
+\put(2,0){\usebox{\boxxright}}
+\put(13.5,0){\usebox{\boxxcy}}
+\put(8,1){\vector(1,0){5.5}}
+\put(-1,1){\vector(1,0){3}}
+\put(-2.2,0.4){\tiny\texttt 0}
+\end{picture}
+}
+
+\begin{document}
+
+%\begin{tabu}{|c|c|c|c|c|c|c|c|}
+%\hline
+%\multicolumn{8}{|c|}{\bfseries Flag Register} \\
+%\hline
+%7 & 6 & 5 & 4 & 3 & 2 & 1 & 0 \\
+%\hline
+%Z & N & H & C & 0 & 0 & 0 & 0 \\
+%\hline
+%\end{tabu}
+
+%\setlength\extrarowheight{1pt}
+
+\begin{center}
+\bfseries\Large{GAME BOY CPU INSTRUCTIONS}
+\end{center}
+
+%\taburulecolor{gray}
+\tabulinestyle{0.2pt}
+%\tabulinesep=1pt
+%\extrarowsep=1pt
+\setlength{\arrayrulewidth}{0.2pt}
+\begin{tabu} to \linewidth {|l|X|c|c|c|c|c|c|}
+
+\hline
+\rowfont\bfseries
+Mnemonic & Symbolic Operation & Comments & CPU Clocks $\times 4$ & Z & N & H & C \\
+\hline
+
+\multicolumn{8}{l}{}\\[1ex]
+\multicolumn{8}{l}{\bfseries\Large 8-Bit Transfer} \\
+\hline
+LD r, s & r $\leftarrow$ s & s = r, n, [HL] & r: 1, n: 2, [HL]: 2 & \multirow{12}{*}{-} & \multirow{12}{*}{-} & \multirow{12}{*}{-} & \multirow{12}{*}{-} \\
+\cline{1-4}
+LD d, r & d $\leftarrow$ r & \multirow{2}{*}{ d = r, [HL] } & r: 1, [HL]: 2 & & & & \\
+\cline{1-2} \cline{4-4}
+LD d, n & d $\leftarrow$ n & & r: 2, [HL]: 3 & & & & \\
+\cline{1-4}
+LD A, [ss] & A $\leftarrow$ [ss] & ss = BC, DE, HL, nn & \multirow{2}{*}{ BC,DE,HL: 2, nn: 4 } & & & & \\
+\cline{1-3}
+LD [dd], A & [dd] $\leftarrow$ A & dd = BC, DE, HL, nn & & & & & \\
+\cline{1-4}
+LD A, [C] & A $\leftarrow$ [\$FF00+C] & & 2 & & & & \\
+\cline{1-2} \cline{4-4}
+LD A, [HL$-$] & A $\leftarrow$ [HL], HL $\leftarrow$ HL$-1$ & & 2 & & & & \\
+\cline{1-2} \cline{4-4}
+LD [HL$-$], A & [HL] $\leftarrow$ A, HL $\leftarrow$ HL$-1$ & & 2 & & & & \\
+\cline{1-2} \cline{4-4}
+LD A, [HL$+$] & A $\leftarrow$ [HL], HL $\leftarrow$ HL$+1$ & & 2 & & & & \\
+\cline{1-2} \cline{4-4}
+LD [HL$+$], A & [HL] $\leftarrow$ A, HL $\leftarrow$ HL$+1$ & & 2 & & & & \\
+\cline{1-2} \cline{4-4}
+LDH [n], A & [\$FF00+n] $\leftarrow$ A & & 3 & & & & \\
+\cline{1-2} \cline{4-4}
+LDH A, [n] & A $\leftarrow$ [\$FF00+n] & & 3 & & & & \\
+\hline
+
+\multicolumn{8}{l}{}\\[1ex]
+\multicolumn{8}{l}{\bfseries\Large 16-Bit Transfer} \\
+\hline
+LD dd, nn & dd $\leftarrow$ nn & dd = BC, DE, HL, SP & 3 & \multirow{3}{*}{-} & \multirow{3}{*}{-} & \multirow{3}{*}{-} & \multirow{3}{*}{-} \\
+\cline{1-4}
+LD [nn], SP & [nn] $\leftarrow$ SP & & 5 & & & & \\
+\cline{1-2} \cline{4-4}
+LD SP, HL & SP $\leftarrow$ HL & & 2 & & & & \\
+\cline{1-2} \cline{4-8}
+LD HL, [SP+e] & HL $\leftarrow$ [SP+e] & & 3 & 0 & 0 & * & * \\
+\hline
+PUSH ss & [SP$-1$] $\leftarrow$ ss\textsubscript{H}, [SP$-2$] $\leftarrow$ ss\textsubscript{L}, \linebreak SP $\leftarrow$ SP$-2$ & ss = BC, DE, HL, AF & 4 & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} \\
+\cline{1-4}
+POP dd & dd\textsubscript{L} $\leftarrow$ [SP], dd\textsubscript{H} $\leftarrow$ [SP$+1$], \linebreak SP $\leftarrow$ SP$+2$ & dd = BC, DE, HL, AF & 3 & & & & \\
+\hline
+
+\multicolumn{8}{l}{}\\[1ex]
+\multicolumn{8}{l}{\bfseries\Large 8-Bit Arithmetic \& Logical} \\
+\hline
+ADD s & A $\leftarrow$ A $+$ s & & \multirow{8}{*}{r: 1, n: 2, [HL]: 2} & \multirow{2}{*}{*} & \multirow{2}{*}{0} & \multirow{2}{*}{*} & \multirow{2}{*}{*} \\
+\cline{1-2}
+ADC s & A $\leftarrow$ A $+$ s $+$ CY & & & & & & \\
+\cline{1-2} \cline{5-8}
+SUB s & A $\leftarrow$ A $-$ s & & & \multirow{2}{*}{*} & \multirow{2}{*}{1} & \multirow{2}{*}{*} & \multirow{2}{*}{*} \\
+\cline{1-2}
+SBC s & A $\leftarrow$ A $+$ s $-$ CY & CY is the carry flag. & & & & & \\
+\cline{1-2} \cline{5-8}
+AND s & A $\leftarrow$ A $\wedge$ s & s = r, n, [HL] & & * & 0 & 1 & 0 \\
+\cline{1-2} \cline{5-8}
+OR s & A $\leftarrow$ A $\vee$ s & & & \multirow{2}{*}{*} & \multirow{2}{*}{0} & \multirow{2}{*}{0} & \multirow{2}{*}{0} \\
+\cline{1-2}
+XOR s & A $\leftarrow$ A $\oplus$ s & & & & & & \\
+\cline{1-2} \cline{5-8}
+CP s & A $-$ s & & & * & 1 & * & * \\
+\hline
+INC s & s $\leftarrow$ s $+$ 1 & \multirow{2}{*}{s = r, [HL]} & \multirow{2}{*}{r: 1, [HL]: 3} & * & 0 & * & - \\
+\cline{1-2} \cline{5-8}
+DEC s & s $\leftarrow$ s $-$ 1 & & & * & 1 & * & - \\
+\hline
+
+\multicolumn{8}{l}{}\\[1ex]
+\multicolumn{8}{l}{\bfseries\Large 16-Bit Arithmetic} \\
+\hline
+ADD HL, ss & HL $\leftarrow$ HL $+$ ss & \multirow{4}{*}{ss = BC, DE, HL, SP} & 2 & - & 0 & * & * \\
+\cline{1-2} \cline{4-8}
+ADD SP, e & SP $\leftarrow$ SP $+$ e & & 4 & 0 & 0 & * & * \\
+\cline{1-2} \cline{4-8}
+INC ss & ss $\leftarrow$ ss $+$ 1 & & 2 & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} \\
+\cline{1-2} \cline{4-4}
+DEC ss & ss $\leftarrow$ ss $-$ 1 & & 2 & & & & \\
+\hline
+
+\multicolumn{8}{l}{}\\[1ex]
+\multicolumn{8}{l}{\bfseries\Large Miscellaneous} \\
+\hline
+SWAP s & \picswap & Swap nibbles. s = r, [HL] & r: 2, [HL]: 4 & * & 0 & 0 & 0 \\
+\hline
+DAA & Converts A into packed BCD & & 1 & * & - & 0 & * \\
+\cline{1-2} \cline{4-8}
+CPL & \raisebox{-1.5pt}{A $\leftarrow$ \textoverline{A}} & & 1 & - & 1 & 1 & - \\
+\hline
+CCF & \raisebox{-1.5pt}{CY $\leftarrow$ \textoverline{CY}} & \multirow{2}{*}{CY is the carry flag.} & 1 & - & 0 & 0 & * \\
+\cline{1-2} \cline{4-8}
+SCF & CY $\leftarrow$ 1 & & 1 & - & 0 & 0 & * \\
+\hline
+NOP & No operation & & 1 & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} \\
+\cline{1-2} \cline{4-4}
+HALT & Enter HALT mode & & 1 & & & & \\
+\cline{1-2} \cline{4-4}
+STOP & Enter STOP mode & & 1 & & & & \\
+\cline{1-2} \cline{4-4}
+DI & Disable Interrupts & & 1 & & & & \\
+\cline{1-2} \cline{4-4}
+EI & Enable Interrupts & & 1 & & & & \\
+\hline
+\end{tabu}
+\clearpage
+
+\begin{center}
+\bfseries\Large{GAME BOY CPU INSTRUCTIONS}
+\end{center}
+
+\begin{tabu} to \linewidth {|l|X|c|c|c|c|c|c|}
+\hline
+\rowfont\bfseries
+Mnemonic & Symbolic Operation & Comments & CPU Clocks $\times 4$ & Z & N & H & C \\
+\hline
+
+\multicolumn{8}{l}{}\\[1ex]
+\multicolumn{8}{l}{\bfseries\Large Rotates \& Shifts} \\
+\hline
+RLCA & \picrlca & & \multirow{4}{*}{1} & \multirow{4}{*}{0} & \multirow{4}{*}{0} & \multirow{4}{*}{0} & \multirow{4}{*}{*} \\
+\cline{1-2}
+RLA & \picrla & & & & & & \\
+\cline{1-2}
+RRCA & \picrrca & & & & & & \\
+\cline{1-2}
+RRA & \picrra & & & & & & \\
+\hline
+RLC s & \picrlca & \multirow{4}{*}{s = A, r, [HL]} & \multirow{4}{*}{r: 2, [HL]: 4} & \multirow{7}{*}{*} & \multirow{7}{*}{0} & \multirow{7}{*}{0} & \multirow{7}{*}{*} \\
+\cline{1-2}
+RL s & \picrla & & & & & & \\
+\cline{1-2}
+RRC s & \picrrca & & & & & & \\
+\cline{1-2}
+RR s & \picrra & & & & & & \\
+\cline{1-4}
+SLA s & \picsla & \multirow{3}{*}{s = r, [HL]} & \multirow{3}{*}{r: 2, [HL]: 4} & & & & \\
+\cline{1-2}
+SRA s & \picsra & & & & & & \\
+\cline{1-2}
+SRL s & \picsrl & & & & & & \\
+\hline
+
+\multicolumn{8}{l}{}\\[1ex]
+\multicolumn{8}{l}{\bfseries\Large Bit Operations} \\
+\hline
+BIT b, s & Z $\leftarrow$ \textoverline{s\textsubscript{b}} & \multirow{3}{*}{Z is zero flag. s = r, [HL]} & r: 2, [HL]: 3 & * & 0 & 1 & - \\
+\cline{1-2} \cline{4-8}
+SET b, s & s\textsubscript{b} $\leftarrow$ 1 & & \multirow{2}{*}{r: 2, [HL]: 4} & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} \\
+\cline{1-2}
+RES b, s & s\textsubscript{b} $\leftarrow$ 0 & & & & & & \\
+\hline
+
+\multicolumn{8}{l}{}\\[1ex]
+\multicolumn{8}{l}{\bfseries\Large Jumps} \\
+\hline
+JP nn & PC $\leftarrow$ nn & & 4 & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} \\
+\cline{1-2} \cline{4-4}
+JP cc, nn & If cc is true, PC $\leftarrow$ nn & & If cc is true, 4 else 3 & & & & \\
+\cline{1-2} \cline{4-4}
+JP HL & PC $\leftarrow$ HL & & 1 & & & & \\
+\cline{1-2} \cline{4-4}
+JR e & PC $\leftarrow$ PC $+$ e & & 3 & & & & \\
+\cline{1-2} \cline{4-4}
+JR cc, e & If cc is true, PC $\leftarrow$ PC $+$ e & & If cc is true, 3 else 2 & & & & \\
+\hline
+
+\multicolumn{8}{l}{}\\[1ex]
+\multicolumn{8}{l}{\bfseries\Large Calls \& Returns} \\
+\hline
+CALL nn & [SP$-1$] $\leftarrow$ PC\textsubscript{H}, [SP$-2$] $\leftarrow$ PC\textsubscript{L}, \linebreak SP $\leftarrow$ SP$-2$ & & 6 & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} \\
+\cline{1-2} \cline{4-4}
+CALL cc, nn & If cc is true, same as CALL nn & & If cc is true, 6 else 3 & & & & \\
+\cline{1-2} \cline{4-4}
+RST f & [SP$-1$] $\leftarrow$ PC\textsubscript{H}, [SP$-2$] $\leftarrow$ PC\textsubscript{L}, SP $\leftarrow$ SP$-2$, PC\textsubscript{H} $\leftarrow$ 0, PC\textsubscript{L} $\leftarrow$ f & & 4 & & & & \\
+\cline{1-2} \cline{4-4}
+RET & PC\textsubscript{L} $\leftarrow$ [SP], PC\textsubscript{H} $\leftarrow$ [SP$+1$], \linebreak SP $\leftarrow$ SP$+2$ & & 4 & & & & \\
+\cline{1-2} \cline{4-4}
+RET cc & If cc is true, same as RET & & If cc is true, 5 else 2 & & & & \\
+\cline{1-2} \cline{4-4}
+RETI & RET then enable interrupts & & 4 & & & & \\
+\hline
+\end{tabu}
+
+\begin{multicols}{2}
+
+\begin{tabu} to \linewidth {|c|l|}
+\multicolumn{2}{l}{}\\[1ex]
+\multicolumn{2}{l}{\bfseries\large Terminology}\\
+\hline
+- & Flag is not affected by this operation. \\
+\hline
+* & Flag is affected according to result of operation. \\
+\hline
+b & A bit number in any 8-bit register or memory location. \\
+\hline
+cc & Flag condition code: C, NC, Z, NZ \\
+\hline
+d & Any 8-bit destination register or memory location. \\
+\hline
+dd & Any 16-bit destination register or memory location. \\
+\hline
+e & 8-bit signed offset (-128 to 127). \\
+\hline
+f & Special call location in page zero (00h, 08h... 38h). \\
+\hline
+n & Any 8-bit integer constant. \\
+\hline
+nn & Any 16-bit integer constant. \\
+\hline
+r & Any 8-bit register (A, B, C, D, E, H or L). \\
+\hline
+s & Any 8-bit source register or memory location. \\
+\hline
+s\textsubscript{b} & A bit in a specific 8-bit register or memory location. \\
+\hline
+ss & Any 16-bit source register or memory location. \\
+\hline
+\end{tabu}
+
+\begin{tabu} to \linewidth {|c|l|}
+\multicolumn{2}{l}{}\\[1ex]
+\multicolumn{2}{l}{\bfseries\large Flags}\\
+\hline
+Z & Zero \\
+\hline
+N & Subtract \\
+\hline
+H & Half Carry \\
+\hline
+C & Carry \\
+\hline
+\end{tabu}
+
+\end{multicols}
+
+\end{document}
