@@ -218,6 +218,12 @@
 \end{picture}
 }
 
+\newcommand{\xsectionx}[1]{
+\multicolumn{8}{l}{}\\
+\multicolumn{8}{l}{\bfseries\Large #1} \\
+\hline
+}
+
 \begin{document}
 
 %\begin{tabu}{|c|c|c|c|c|c|c|c|}
@@ -239,7 +245,7 @@
 %\taburulecolor{gray}
 \tabulinestyle{0.2pt}
 %\tabulinesep=1pt
-%\extrarowsep=1pt
+\extrarowsep=0.5pt
 \setlength{\arrayrulewidth}{0.2pt}
 \begin{tabu} to \linewidth {|l|X|c|c|c|c|c|c|}
 
@@ -248,9 +254,7 @@
 Mnemonic & Symbolic Operation & Comments & CPU Clocks $\times 4$ & Z & N & H & C \\
 \hline
 
-\multicolumn{8}{l}{}\\[1ex]
-\multicolumn{8}{l}{\bfseries\Large 8-Bit Transfer} \\
-\hline
+\xsectionx{8-Bit Transfer}
 LD r, s & r $\leftarrow$ s & s = r, n, [HL] & r: 1, n: 2, [HL]: 2 & \multirow{12}{*}{-} & \multirow{12}{*}{-} & \multirow{12}{*}{-} & \multirow{12}{*}{-} \\
 \cline{1-4}
 LD d, r & d $\leftarrow$ r & \multirow{2}{*}{ d = r, [HL] } & r: 1, [HL]: 2 & & & & \\
@@ -276,9 +280,7 @@ LDH [n], A & [\$FF00+n] $\leftarrow$ A & & 3 & & & & \\
 LDH A, [n] & A $\leftarrow$ [\$FF00+n] & & 3 & & & & \\
 \hline
 
-\multicolumn{8}{l}{}\\[1ex]
-\multicolumn{8}{l}{\bfseries\Large 16-Bit Transfer} \\
-\hline
+\xsectionx{16-Bit Transfer}
 LD dd, nn & dd $\leftarrow$ nn & dd = BC, DE, HL, SP & 3 & \multirow{3}{*}{-} & \multirow{3}{*}{-} & \multirow{3}{*}{-} & \multirow{3}{*}{-} \\
 \cline{1-4}
 LD [nn], SP & [nn] $\leftarrow$ SP & & 5 & & & & \\
@@ -292,9 +294,7 @@ PUSH ss & [SP$-1$] $\leftarrow$ ss\textsubscript{H}, [SP$-2$] $\leftarrow$ ss\te
 POP dd & dd\textsubscript{L} $\leftarrow$ [SP], dd\textsubscript{H} $\leftarrow$ [SP$+1$], \linebreak SP $\leftarrow$ SP$+2$ & dd = BC, DE, HL, AF & 3 & & & & \\
 \hline
 
-\multicolumn{8}{l}{}\\[1ex]
-\multicolumn{8}{l}{\bfseries\Large 8-Bit Arithmetic \& Logical} \\
-\hline
+\xsectionx{Arithmetic \& Logical}
 ADD s & A $\leftarrow$ A $+$ s & & \multirow{8}{*}{r: 1, n: 2, [HL]: 2} & \multirow{2}{*}{*} & \multirow{2}{*}{0} & \multirow{2}{*}{*} & \multirow{2}{*}{*} \\
 \cline{1-2}
 ADC s & A $\leftarrow$ A $+$ s $+$ CY & & & & & & \\
@@ -316,9 +316,7 @@ INC s & s $\leftarrow$ s $+$ 1 & \multirow{2}{*}{s = r, [HL]} & \multirow{2}{*}{
 DEC s & s $\leftarrow$ s $-$ 1 & & & * & 1 & * & - \\
 \hline
 
-\multicolumn{8}{l}{}\\[1ex]
-\multicolumn{8}{l}{\bfseries\Large 16-Bit Arithmetic} \\
-\hline
+\xsectionx{16-Bit Arithmetic}
 ADD HL, ss & HL $\leftarrow$ HL $+$ ss & \multirow{4}{*}{ss = BC, DE, HL, SP} & 2 & - & 0 & * & * \\
 \cline{1-2} \cline{4-8}
 ADD SP, e & SP $\leftarrow$ SP $+$ e & & 4 & 0 & 0 & * & * \\
@@ -328,9 +326,7 @@ INC ss & ss $\leftarrow$ ss $+$ 1 & & 2 & \multirow{2}{*}{-} & \multirow{2}{*}{-
 DEC ss & ss $\leftarrow$ ss $-$ 1 & & 2 & & & & \\
 \hline
 
-\multicolumn{8}{l}{}\\[1ex]
-\multicolumn{8}{l}{\bfseries\Large Miscellaneous} \\
-\hline
+\xsectionx{Miscellaneous}
 SWAP s & \picswap & Swap nibbles. s = r, [HL] & r: 2, [HL]: 4 & * & 0 & 0 & 0 \\
 \hline
 DAA & Converts A into packed BCD & & 1 & * & - & 0 & * \\
@@ -364,9 +360,7 @@ EI & Enable Interrupts & & 1 & & & & \\
 Mnemonic & Symbolic Operation & Comments & CPU Clocks $\times 4$ & Z & N & H & C \\
 \hline
 
-\multicolumn{8}{l}{}\\[1ex]
-\multicolumn{8}{l}{\bfseries\Large Rotates \& Shifts} \\
-\hline
+\xsectionx{Rotates \& Shifts}
 RLCA & \picrlca & & \multirow{4}{*}{1} & \multirow{4}{*}{0} & \multirow{4}{*}{0} & \multirow{4}{*}{0} & \multirow{4}{*}{*} \\
 \cline{1-2}
 RLA & \picrla & & & & & & \\
@@ -390,9 +384,7 @@ SRA s & \picsra & & & & & & \\
 SRL s & \picsrl & & & & & & \\
 \hline
 
-\multicolumn{8}{l}{}\\[1ex]
-\multicolumn{8}{l}{\bfseries\Large Bit Operations} \\
-\hline
+\xsectionx{Bit Operations}
 BIT b, s & Z $\leftarrow$ \textoverline{s\textsubscript{b}} & \multirow{3}{*}{Z is zero flag. s = r, [HL]} & r: 2, [HL]: 3 & * & 0 & 1 & - \\
 \cline{1-2} \cline{4-8}
 SET b, s & s\textsubscript{b} $\leftarrow$ 1 & & \multirow{2}{*}{r: 2, [HL]: 4} & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} \\
@@ -400,9 +392,7 @@ SET b, s & s\textsubscript{b} $\leftarrow$ 1 & & \multirow{2}{*}{r: 2, [HL]: 4} 
 RES b, s & s\textsubscript{b} $\leftarrow$ 0 & & & & & & \\
 \hline
 
-\multicolumn{8}{l}{}\\[1ex]
-\multicolumn{8}{l}{\bfseries\Large Jumps} \\
-\hline
+\xsectionx{Jumps}
 JP nn & PC $\leftarrow$ nn & & 4 & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} \\
 \cline{1-2} \cline{4-4}
 JP cc, nn & If cc is true, PC $\leftarrow$ nn & & If cc is true, 4 else 3 & & & & \\
@@ -414,9 +404,7 @@ JR e & PC $\leftarrow$ PC $+$ e & & 3 & & & & \\
 JR cc, e & If cc is true, PC $\leftarrow$ PC $+$ e & & If cc is true, 3 else 2 & & & & \\
 \hline
 
-\multicolumn{8}{l}{}\\[1ex]
-\multicolumn{8}{l}{\bfseries\Large Calls \& Returns} \\
-\hline
+\xsectionx{Calls \& Returns}
 CALL nn & [SP$-1$] $\leftarrow$ PC\textsubscript{H}, [SP$-2$] $\leftarrow$ PC\textsubscript{L}, \linebreak SP $\leftarrow$ SP$-2$ & & 6 & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} \\
 \cline{1-2} \cline{4-4}
 CALL cc, nn & If cc is true, same as CALL nn & & If cc is true, 6 else 3 & & & & \\
