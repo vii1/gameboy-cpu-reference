@@ -40,6 +40,7 @@
 \usepackage{longtable}
 \usepackage{tabu}
 \usepackage{multirow}
+\usepackage{bigdelim}
 
 \usepackage{multicol}
 \setlength{\columnsep}{1cm}
@@ -219,7 +220,7 @@
 }
 
 \newcommand{\xsectionx}[1]{
-\multicolumn{8}{l}{}\\
+\multicolumn{8}{l}{}\\[-3pt]
 \multicolumn{8}{l}{\bfseries\Large #1} \\
 \hline
 }
@@ -265,8 +266,6 @@ LD A, [ss] & A $\leftarrow$ [ss] & ss = BC, DE, HL, nn & \multirow{2}{*}{ BC,DE,
 \cline{1-3}
 LD [dd], A & [dd] $\leftarrow$ A & dd = BC, DE, HL, nn & & & & & \\
 \cline{1-4}
-LD A, [C] & A $\leftarrow$ [\$FF00+C] & & 2 & & & & \\
-\cline{1-2} \cline{4-4}
 LD A, [HL$-$] & A $\leftarrow$ [HL], HL $\leftarrow$ HL$-1$ & & 2 & & & & \\
 \cline{1-2} \cline{4-4}
 LD [HL$-$], A & [HL] $\leftarrow$ A, HL $\leftarrow$ HL$-1$ & & 2 & & & & \\
@@ -274,6 +273,10 @@ LD [HL$-$], A & [HL] $\leftarrow$ A, HL $\leftarrow$ HL$-1$ & & 2 & & & & \\
 LD A, [HL$+$] & A $\leftarrow$ [HL], HL $\leftarrow$ HL$+1$ & & 2 & & & & \\
 \cline{1-2} \cline{4-4}
 LD [HL$+$], A & [HL] $\leftarrow$ A, HL $\leftarrow$ HL$+1$ & & 2 & & & & \\
+\cline{1-2} \cline{4-4}
+LDH [C], A, & [\$FF00+C] $\leftarrow$ A & & 2 & & & & \\
+\cline{1-2} \cline{4-4}
+LDH A, [C] & A $\leftarrow$ [\$FF00+C] & & 2 & & & & \\
 \cline{1-2} \cline{4-4}
 LDH [n], A & [\$FF00+n] $\leftarrow$ A & & 3 & & & & \\
 \cline{1-2} \cline{4-4}
@@ -283,11 +286,11 @@ LDH A, [n] & A $\leftarrow$ [\$FF00+n] & & 3 & & & & \\
 \xsectionx{16-Bit Transfer}
 LD dd, nn & dd $\leftarrow$ nn & dd = BC, DE, HL, SP & 3 & \multirow{3}{*}{-} & \multirow{3}{*}{-} & \multirow{3}{*}{-} & \multirow{3}{*}{-} \\
 \cline{1-4}
-LD [nn], SP & [nn] $\leftarrow$ SP & & 5 & & & & \\
+LD [nn], SP & [nn] $\leftarrow$ SP\textsubscript{L}, [nn$+1$] $\leftarrow$ SP\textsubscript{H} & & 5 & & & & \\
 \cline{1-2} \cline{4-4}
 LD SP, HL & SP $\leftarrow$ HL & & 2 & & & & \\
 \cline{1-2} \cline{4-8}
-LD HL, [SP+e] & HL $\leftarrow$ [SP+e] & & 3 & 0 & 0 & * & * \\
+LD HL, SP+e & HL $\leftarrow$ SP+e & & 3 & 0 & 0 & * & * \\
 \hline
 PUSH ss & [SP$-1$] $\leftarrow$ ss\textsubscript{H}, [SP$-2$] $\leftarrow$ ss\textsubscript{L}, \linebreak SP $\leftarrow$ SP$-2$ & ss = BC, DE, HL, AF & 4 & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} & \multirow{2}{*}{-} \\
 \cline{1-4}
@@ -301,15 +304,15 @@ ADC s & A $\leftarrow$ A $+$ s $+$ CY & & & & & & \\
 \cline{1-2} \cline{5-8}
 SUB s & A $\leftarrow$ A $-$ s & & & \multirow{2}{*}{*} & \multirow{2}{*}{1} & \multirow{2}{*}{*} & \multirow{2}{*}{*} \\
 \cline{1-2}
-SBC s & A $\leftarrow$ A $+$ s $-$ CY & CY is the carry flag. & & & & & \\
+SBC s & A $\leftarrow$ A $-$ s $-$ CY & CY is the carry flag. & & & & & \\
 \cline{1-2} \cline{5-8}
-AND s & A $\leftarrow$ A $\wedge$ s & s = r, n, [HL] & & * & 0 & 1 & 0 \\
+CP s & A $-$ s & s = r, n, [HL] & & * & 1 & * & * \\
+\cline{1-2} \cline{5-8}
+AND s & A $\leftarrow$ A $\wedge$ s & \multicolumn{1}{|l|}{ \rdelim\}{3}{*}[ Bitwise operations] } & & * & 0 & 1 & 0 \\
 \cline{1-2} \cline{5-8}
 OR s & A $\leftarrow$ A $\vee$ s & & & \multirow{2}{*}{*} & \multirow{2}{*}{0} & \multirow{2}{*}{0} & \multirow{2}{*}{0} \\
 \cline{1-2}
 XOR s & A $\leftarrow$ A $\oplus$ s & & & & & & \\
-\cline{1-2} \cline{5-8}
-CP s & A $-$ s & & & * & 1 & * & * \\
 \hline
 INC s & s $\leftarrow$ s $+$ 1 & \multirow{2}{*}{s = r, [HL]} & \multirow{2}{*}{r: 1, [HL]: 3} & * & 0 & * & - \\
 \cline{1-2} \cline{5-8}
@@ -329,19 +332,19 @@ DEC ss & ss $\leftarrow$ ss $-$ 1 & & 2 & & & & \\
 \xsectionx{Miscellaneous}
 SWAP s & \picswap & Swap nibbles. s = r, [HL] & r: 2, [HL]: 4 & * & 0 & 0 & 0 \\
 \hline
-DAA & Converts A into packed BCD & & 1 & * & - & 0 & * \\
+DAA & Adjusts A to packed BCD & & 1 & * & - & 0 & * \\
 \cline{1-2} \cline{4-8}
 CPL & \raisebox{-1.5pt}{A $\leftarrow$ \textoverline{A}} & & 1 & - & 1 & 1 & - \\
 \hline
 CCF & \raisebox{-1.5pt}{CY $\leftarrow$ \textoverline{CY}} & \multirow{2}{*}{CY is the carry flag.} & 1 & - & 0 & 0 & * \\
 \cline{1-2} \cline{4-8}
-SCF & CY $\leftarrow$ 1 & & 1 & - & 0 & 0 & * \\
+SCF & CY $\leftarrow$ 1 & & 1 & - & 0 & 0 & 1 \\
 \hline
 NOP & No operation & & 1 & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} \\
 \cline{1-2} \cline{4-4}
-HALT & Enter HALT mode & & 1 & & & & \\
+HALT & Enter HALT mode & & N/A & & & & \\
 \cline{1-2} \cline{4-4}
-STOP & Enter STOP mode & & 1 & & & & \\
+STOP & Enter STOP mode & & N/A & & & & \\
 \cline{1-2} \cline{4-4}
 DI & Disable Interrupts & & 1 & & & & \\
 \cline{1-2} \cline{4-4}
@@ -353,6 +356,8 @@ EI & Enable Interrupts & & 1 & & & & \\
 \begin{center}
 \bfseries\Large{GAME BOY CPU INSTRUCTIONS}
 \end{center}
+
+\extrarowsep=0.5pt
 
 \begin{tabu} to \linewidth {|l|X|c|c|c|c|c|c|}
 \hline
@@ -398,18 +403,18 @@ JP nn & PC $\leftarrow$ nn & & 4 & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \mu
 JP cc, nn & If cc is true, PC $\leftarrow$ nn & & If cc is true, 4 else 3 & & & & \\
 \cline{1-2} \cline{4-4}
 JP HL & PC $\leftarrow$ HL & & 1 & & & & \\
+\cline{1-4}
+JR e & PC $\leftarrow$ PC $+$ e & Base address is that & 3 & & & & \\
 \cline{1-2} \cline{4-4}
-JR e & PC $\leftarrow$ PC $+$ e & & 3 & & & & \\
-\cline{1-2} \cline{4-4}
-JR cc, e & If cc is true, PC $\leftarrow$ PC $+$ e & & If cc is true, 3 else 2 & & & & \\
+JR cc, e & If cc is true, PC $\leftarrow$ PC $+$ e & of \emph{next} instruction & If cc is true, 3 else 2 & & & & \\
 \hline
 
 \xsectionx{Calls \& Returns}
-CALL nn & [SP$-1$] $\leftarrow$ PC\textsubscript{H}, [SP$-2$] $\leftarrow$ PC\textsubscript{L}, \linebreak SP $\leftarrow$ SP$-2$ & & 6 & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} \\
+CALL nn & [SP$-1$] $\leftarrow$ PC\textsubscript{H}, [SP$-2$] $\leftarrow$ PC\textsubscript{L}, \linebreak SP $\leftarrow$ SP$-2$, PC $\leftarrow$ nn & & 6 & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} & \multirow{5}{*}{-} \\
 \cline{1-2} \cline{4-4}
 CALL cc, nn & If cc is true, same as CALL nn & & If cc is true, 6 else 3 & & & & \\
 \cline{1-2} \cline{4-4}
-RST f & [SP$-1$] $\leftarrow$ PC\textsubscript{H}, [SP$-2$] $\leftarrow$ PC\textsubscript{L}, SP $\leftarrow$ SP$-2$, PC\textsubscript{H} $\leftarrow$ 0, PC\textsubscript{L} $\leftarrow$ f & & 4 & & & & \\
+RST f & Fast shortcut for CALL f & & 4 & & & & \\
 \cline{1-2} \cline{4-4}
 RET & PC\textsubscript{L} $\leftarrow$ [SP], PC\textsubscript{H} $\leftarrow$ [SP$+1$], \linebreak SP $\leftarrow$ SP$+2$ & & 4 & & & & \\
 \cline{1-2} \cline{4-4}
